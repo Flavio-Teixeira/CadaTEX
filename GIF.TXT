@@ -1,0 +1,20 @@
+procedure TForm1.Open1Click(Sender: TObject);
+var
+  f : TFileStream;
+  graphic : TOleGraphic;
+begin
+  if OpenDialog1.Execute then
+  begin
+    graphic := TOleGraphic.Create;
+
+    f := TFileStream.Create (OpenDialog1.FileName, fmOpenRead or 
+fmShareDenyNone);
+    try
+      graphic.LoadFromStream(f);
+      Image1.Picture.Assign(graphic);
+    finally
+      f.Free
+    end
+  end
+end;
+
